@@ -1,7 +1,9 @@
+# TODO May break if a module with an older version uses the newest scripts
+
 data "http" "KubeInitMaster" {
-  url = "https://github.com/LNA-DEV/terraform-hetzner-kubernetes/blob/main/Scripts/KubeInitMaster.sh"
+  url = "https://raw.githubusercontent.com/LNA-DEV/terraform-hetzner-kubernetes/main/Scripts/KubeInitMaster.sh"
 }
 
 data "http" "KubeInitNode" {
-  url = "https://github.com/LNA-DEV/terraform-hetzner-kubernetes/blob/main/Scripts/KubeInitNode.sh"
+  url = "https://raw.githubusercontent.com/LNA-DEV/terraform-hetzner-kubernetes/main/Scripts/KubeInitNode.sh"
 }
