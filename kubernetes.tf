@@ -3,18 +3,12 @@ resource "hcloud_server" "kubeMaster" {
   server_type = "cpx11"
   image       = "ubuntu-20.04"
   location    = "nbg1"
-  user_data   = replace(file("./Scripts/KubeInitMaster.sh"), "[REPLACE]", sum(["${var.kubeNodeCount}", 1]))
+  user_data   = replace(file("https://github.com/LNA-DEV/terraform-hetzner-kubernetes/blob/d87c35660f0633422a848fdd00c98ea73b1dca2c/Scripts/KubeInitMaster.sh"), "[REPLACE]", sum(["${var.kubeNodeCount}", 1]))
 
   network {
     network_id = hcloud_network.kubeNetwork.id
     ip         = "10.0.1.1"
   }
-}
-
-variable "kubeNodeCount" {
-  type        = number
-  description = "Count of Kubernetes Nodes"
-  default     = 1
 }
 
 resource "hcloud_server" "kubeNode" {
@@ -23,7 +17,7 @@ resource "hcloud_server" "kubeNode" {
   server_type = "cpx11"
   image       = "ubuntu-20.04"
   location    = "nbg1"
-  user_data   = file("./Scripts/KubeInitNode.sh")
+  user_data   = file("https://github.com/LNA-DEV/terraform-hetzner-kubernetes/blob/d87c35660f0633422a848fdd00c98ea73b1dca2c/Scripts/KubeInitNode.sh")
 
   network {
     network_id = hcloud_network.kubeNetwork.id

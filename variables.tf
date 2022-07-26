@@ -3,3 +3,9 @@ variable "hcloud_token" {
   type        = string
   description = "Hetzner API-Token"
 }
+
+variable "kubeNodeCount" {
+  type        = number
+  description = "Count of Kubernetes Nodes"
+  default     = 1
+}
