@@ -30,7 +30,7 @@ publicIp=$(curl ipinfo.io/ip)
 kubeadm init --apiserver-advertise-address=$publicIp --pod-network-cidr=10.0.0.0/16  --ignore-preflight-errors=all
 
 # Calico Network
-# TODO Test without the calico network kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 
 # Join Nodes
 kubeadm token create --print-join-command > ~/join.txt
