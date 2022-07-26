@@ -20,7 +20,7 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
+          release_name: v${{ env.VERSION }}
           tag_name: v${{ env.VERSION }}
           body_path: .github/Changelog.md
         env:
