@@ -14,8 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: ls
-
       - name: release
         uses: actions/create-release@v1
         id: terraform-hetzner-kubernetes-release
@@ -24,6 +22,6 @@ jobs:
           prerelease: false
           release_name: ${{ steps.version.outputs.version }}
           tag_name: v${{ env.VERSION }}
-          body_path: ../Changelog.md
+          body_path: .github/Changelog.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
