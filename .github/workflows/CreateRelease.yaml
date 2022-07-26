@@ -1,0 +1,27 @@
+name: CreateRelease
+
+on:
+  push:
+    branches: [main]
+
+env:
+  VERSION: 1.1.${{ github.run_number }}
+
+jobs:
+  ReleaseToGithub:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: release
+        uses: actions/create-release@v1
+        id: terraform-hetzner-kubernetes-release
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.version.outputs.version }}
+          tag_name: v${{ env.VERSION }}
+          body_path: ./Changelog.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
