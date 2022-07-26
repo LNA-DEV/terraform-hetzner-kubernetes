@@ -3,7 +3,12 @@ resource "hcloud_server" "kubeMaster" {
   server_type = "cpx11"
   image       = "ubuntu-20.04"
   location    = "nbg1"
+
+  # Release
   user_data   = replace(tostring(data.http.KubeInitMaster.body), "[REPLACE]", sum(["${var.kubeNodeCount}", 1]))
+
+  # Debug
+  # user_data   = replace(file("./Scripts/KubeInitMaster.sh"), "[REPLACE]", sum(["${var.kubeNodeCount}", 1]))
 
   network {
     network_id = hcloud_network.kubeNetwork.id
@@ -17,7 +22,12 @@ resource "hcloud_server" "kubeNode" {
   server_type = "cpx11"
   image       = "ubuntu-20.04"
   location    = "nbg1"
+
+  # Release
   user_data   = tostring(data.http.KubeInitNode.body)
+
+  # Debug
+  # user_data   = file("./Scripts/KubeInitNode.sh")
 
   network {
     network_id = hcloud_network.kubeNetwork.id
