@@ -1,3 +1,3 @@
-# Changelog
+# Changelog 🪵
 
 TODO Some Changes
