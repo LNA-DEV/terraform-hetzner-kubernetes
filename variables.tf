@@ -25,7 +25,8 @@ variable "loadBalancerDestinationPort" {
 variable "kubeSecrets" {
   type        = string
   description = "Secrets which will be added to kubernetes"
-  default = ""
+  default     = ""
+  sensitive   = true
 }
 
 
