@@ -52,10 +52,12 @@ resource "hcloud_load_balancer" "load_balancer" {
   name               = "load_balancer"
   load_balancer_type = "lb11"
   location           = "nbg1"
-  target {
-    type      = "server"
-    server_id = hcloud_server.kubeNode["0"].id
-  }
+}
+
+resource "hcloud_load_balancer_target" "load_balancer_target" {
+  type             = "server"
+  load_balancer_id = hcloud_load_balancer.load_balancer.id
+  server_id        = hcloud_server.kubeNode["0"].id
 }
 
 resource "hcloud_load_balancer_service" "load_balancer_service" {
