@@ -60,5 +60,14 @@ do
   kubectl label node kubenode$i node-role.kubernetes.io/worker=worker
 done
 
+# Add secrets
+secrets=[SECRETS]
+
+for ((i = 0; i < ${#secrets[@]}; i++))
+do
+    echo "${secrets[$i]}"
+    eval "${secrets[$i]}"
+done
+
 # Finisheds script
 touch ~/FinishedScript.txt
