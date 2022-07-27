@@ -1,3 +1,5 @@
+# Input
+
 variable "hcloud_token" {
   sensitive   = true
   type        = string
@@ -18,4 +20,23 @@ variable "certifacteDomains" {
 variable "loadBalancerDestinationPort" {
   type        = string
   description = "Destination Port of the LoadBalancer"
+}
+
+
+
+# Output
+
+output "kubeMasterIp" {
+  value       = hcloud_server.kubeMaster.ipv4_address
+  description = "The ip address of the master node"
+}
+
+output "kubeMasterNode0" {
+  value       = hcloud_server.kubeNode["0"].ipv4_address
+  description = "The ip address of the worker 0 node"
+}
+
+output "loadBalancerIp" {
+  value       = hcloud_load_balancer.load_balancer.ipv4
+  description = "The ip of the load balancer"
 }
