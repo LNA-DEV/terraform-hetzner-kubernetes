@@ -5,7 +5,7 @@ resource "hcloud_server" "kubeMaster" {
   location    = "nbg1"
 
   # Release
-  user_data   = replace(tostring(data.http.KubeInitMaster.body), "[REPLACE]", sum(["${var.kubeNodeCount}", 1]))
+  user_data = replace(tostring(data.http.KubeInitMaster.body), "[REPLACE]", sum(["${var.kubeNodeCount}", 1]))
 
   # Debug
   # user_data   = replace(file("./Scripts/KubeInitMaster.sh"), "[REPLACE]", sum(["${var.kubeNodeCount}", 1]))
@@ -24,7 +24,7 @@ resource "hcloud_server" "kubeNode" {
   location    = "nbg1"
 
   # Release
-  user_data   = tostring(data.http.KubeInitNode.body)
+  user_data = tostring(data.http.KubeInitNode.body)
 
   # Debug
   # user_data   = file("./Scripts/KubeInitNode.sh")
@@ -49,7 +49,7 @@ resource "hcloud_network_subnet" "kubeNetworkSubnet" {
 
 # Load Balancer
 resource "hcloud_load_balancer" "load_balancer" {
-    name               = "load_balancer"
+  name               = "load_balancer"
   load_balancer_type = "lb11"
   location           = "nbg1"
   target {
@@ -59,17 +59,17 @@ resource "hcloud_load_balancer" "load_balancer" {
 }
 
 resource "hcloud_load_balancer_service" "load_balancer_service" {
-    load_balancer_id = hcloud_load_balancer.load_balancer.id
-    protocol         = "https"
-    destination_port = "30001"
+  load_balancer_id = hcloud_load_balancer.load_balancer.id
+  protocol         = "https"
+  destination_port = var.loadBalancerDestinationPort
 
-    http {
-        certificates = [hcloud_managed_certificate.managed_cert.id]
-        redirect_http = true
-    }
+  http {
+    certificates  = [hcloud_managed_certificate.managed_cert.id]
+    redirect_http = true
+  }
 }
 
 resource "hcloud_managed_certificate" "managed_cert" {
   name         = "managed_cert"
-  domain_names = ["*.lna-dev.net"]
+  domain_names = var.certifacteDomains
 }

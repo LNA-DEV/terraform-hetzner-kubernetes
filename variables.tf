@@ -9,3 +9,13 @@ variable "kubeNodeCount" {
   description = "Count of Kubernetes Nodes which are added in addition to the master node"
   default     = 1
 }
+
+variable "certifacteDomains" {
+  type        = list(string)
+  description = "A list of domains for certificates"
+}
+
+variable "loadBalancerDestinationPort" {
+  type        = string
+  description = "Destination Port of the LoadBalancer"
+}
