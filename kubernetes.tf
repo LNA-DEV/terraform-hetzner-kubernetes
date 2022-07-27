@@ -7,10 +7,10 @@ resource "hcloud_server" "kubeMaster" {
   location    = "nbg1"
 
   # Release
-  user_data = replace(tostring(data.http.KubeInitMaster.body), "[REPLACE]", sum(["${var.kubeNodeCount}", 1]))
+  user_data = replace(replace(tostring(data.http.KubeInitMaster.body), "[REPLACE]", sum(["${var.kubeNodeCount}", 1])), "[SECRETS]", var.kubeSecrets)
 
   # Debug
-  # user_data   = replace(file("./Scripts/KubeInitMaster.sh"), "[REPLACE]", sum(["${var.kubeNodeCount}", 1]))
+  # user_data   = replace(replace(file("./Scripts/KubeInitMaster.sh"), "[REPLACE]", sum(["${var.kubeNodeCount}", 1])), "[SECRETS]", var.kubeSecrets)
 
   network {
     network_id = hcloud_network.kubeNetwork.id

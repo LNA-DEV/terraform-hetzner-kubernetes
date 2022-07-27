@@ -22,6 +22,11 @@ variable "loadBalancerDestinationPort" {
   description = "Destination Port of the LoadBalancer"
 }
 
+variable "kubeSecrets" {
+  type        = string
+  description = "Secrets which will be added to kubernetes"
+  default = ""
+}
 
 
 # Output
