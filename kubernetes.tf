@@ -63,6 +63,14 @@ resource "hcloud_load_balancer_service" "load_balancer_service" {
   protocol         = "https"
   destination_port = var.loadBalancerDestinationPort
 
+  health_check {
+    protocol = "tcp"
+    port     = var.loadBalancerDestinationPort
+    interval = 15
+    timeout  = 10
+    retries  = 3
+  }
+
   http {
     certificates  = [hcloud_managed_certificate.managed_cert.id]
     redirect_http = true
