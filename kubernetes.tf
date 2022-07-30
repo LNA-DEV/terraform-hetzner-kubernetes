@@ -31,6 +31,13 @@ resource "hcloud_server" "kubeNode" {
   # Debug
   # user_data   = file("./Scripts/KubeInitNode.sh")
 
+  # Recreates the nodes if master changes
+  lifecycle {
+    replace_triggered_by = [
+      hcloud_server.kubeMaster
+    ]
+  }
+
   network {
     network_id = hcloud_network.kubeNetwork.id
     ip         = replace("10.0.1.X", "X", sum(["${count.index}", 2]))
